@@ -5,6 +5,8 @@ tg.expand();
 //Variables
 let inputs = document.querySelectorAll('.form input, .form select, .form textarea');
 let errorDiv = document.getElementById('error-message');
+let button = document.querySelector(".submit-button")
+console.log(button)
 
 //functions
 function validateForm(event) {
