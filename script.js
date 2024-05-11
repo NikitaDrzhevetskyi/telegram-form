@@ -1,20 +1,19 @@
-//TG
+// TG
 const tg = window.Telegram.WebApp;
-tg.expand();
 
-//Variables
-let inputs = document.querySelectorAll('.form input, .form select, .form textarea');
-let errorDiv = document.getElementById('error-message');
-let button = document.querySelector('.submit-button');
+// Variables
+const inputs = document.querySelectorAll('.form input, .form select, .form textarea');
+const errorDiv = document.getElementById('error-message');
+const button = document.querySelector('.submit-button');
 
-//functions
+// Functions
 function validateForm(event) {
   event.preventDefault();
 
   let isValid = true;
-  let emptyInputs = [];
+  const emptyInputs = [];
 
-  inputs.forEach(function (input) {
+  inputs.forEach((input) => {
     if (input.value.trim() === '') {
       isValid = false;
       emptyInputs.push(input);
@@ -25,22 +24,37 @@ function validateForm(event) {
 
   if (isValid) {
     errorDiv.style.display = 'none';
-    alert('Оголошення додано!');
+    tg.close();
   } else {
     errorDiv.style.display = 'block';
     errorDiv.innerText = 'Будь ласка, заповніть всі поля форми';
 
-    emptyInputs.forEach(function (input) {
+    emptyInputs.forEach((input) => {
       input.style.border = '2px solid rgb(220, 20, 20)';
     });
   }
   window.scrollTo(0, 0);
 }
 
-function getFormData() {}
+function getFormData() {
+  return {
+    district: document.getElementById('district').value,
+    price: document.getElementById('price').value,
+    currency: document.getElementById('currency').value,
+    description: document.getElementById('description').value,
+    room_number: document.getElementById('room_number').value,
+    area: document.getElementById('area').value,
+  };
+}
 
-//eventListener
-inputs.forEach(function (input) {
+// Event Listeners
+button.addEventListener('click', () => {
+  const formData = getFormData();
+  const jsonData = JSON.stringify(formData);
+  console.log(jsonData);
+});
+
+inputs.forEach((input) => {
   input.addEventListener('input', function () {
     if (this.value.trim() !== '') {
       this.style.border = '';
@@ -48,20 +62,7 @@ inputs.forEach(function (input) {
   });
 });
 
-function getFormData() {
-  let formData = {};
-
-  formData.district = document.getElementById('district').value;
-  formData.price = document.getElementById('price').value;
-  formData.currency = document.getElementById('currency').value;
-  formData.description = document.getElementById('description').value;
-  formData.room_number = document.getElementById('room_number').value;
-  formData.area = document.getElementById('area').value;
-
-  return formData;
-}
-
-document.body.addEventListener('click', function (event) {
+document.body.addEventListener('click', (event) => {
   if (!event.target.closest('.form')) {
     document.activeElement.blur();
   }
