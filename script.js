@@ -5,8 +5,7 @@ tg.expand();
 //Variables
 let inputs = document.querySelectorAll('.form input, .form select, .form textarea');
 let errorDiv = document.getElementById('error-message');
-let button = document.querySelector(".submit-button")
-console.log(button)
+let button = document.querySelector('.submit-button');
 
 //functions
 function validateForm(event) {
@@ -32,11 +31,15 @@ function validateForm(event) {
     errorDiv.innerText = 'Будь ласка, заповніть всі поля форми';
 
     emptyInputs.forEach(function (input) {
-      input.style.border = '2px solid red';
+      input.style.border = '2px solid rgb(220, 20, 20)';
     });
   }
+  window.scrollTo(0, 0);
 }
 
+function getFormData() {}
+
+//eventListener
 inputs.forEach(function (input) {
   input.addEventListener('input', function () {
     if (this.value.trim() !== '') {
@@ -44,3 +47,26 @@ inputs.forEach(function (input) {
     }
   });
 });
+
+function getFormData() {
+  let formData = {};
+
+  formData.district = document.getElementById('district').value;
+  formData.price = document.getElementById('price').value;
+  formData.currency = document.getElementById('currency').value;
+  formData.description = document.getElementById('description').value;
+  formData.room_number = document.getElementById('room_number').value;
+  formData.area = document.getElementById('area').value;
+
+  return formData;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	document.body.addEventListener('click', function(event) {
+	  if (!event.target.closest('.form')) {
+		// If the clicked element is not within the form, blur the form
+		document.activeElement.blur();
+	  }
+	});
+  });
+  
