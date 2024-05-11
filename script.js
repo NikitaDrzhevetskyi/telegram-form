@@ -61,12 +61,8 @@ function getFormData() {
   return formData;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	document.body.addEventListener('click', function(event) {
-	  if (!event.target.closest('.form')) {
-		// If the clicked element is not within the form, blur the form
-		document.activeElement.blur();
-	  }
-	});
-  });
-  
+document.body.addEventListener('click', function (event) {
+  if (!event.target.closest('.form')) {
+    document.activeElement.blur();
+  }
+});
